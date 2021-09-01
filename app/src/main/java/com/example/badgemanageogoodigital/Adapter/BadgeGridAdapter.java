@@ -16,8 +16,8 @@ import com.example.badgemanageogoodigital.Service.JsonService;
 
 import java.io.IOException;
 import java.io.InputStream;
-
-public class GridAdapter extends BaseAdapter {
+    
+public class BadgeGridAdapter extends BaseAdapter {
     Context context;
     private JsonService service;
 
@@ -32,7 +32,7 @@ public class GridAdapter extends BaseAdapter {
     private LayoutInflater mInflater;
 
 
-    public GridAdapter(Context context, BadgeData[] locations){
+    public BadgeGridAdapter(Context context, BadgeData[] locations){
         mInflater=(LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.context=context;
         items=locations;
@@ -64,7 +64,7 @@ public class GridAdapter extends BaseAdapter {
         }
         return 0;
     }
-
+    //Viewe set ediyoruz listemizdeki verileri
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View view=convertView;
@@ -82,13 +82,14 @@ public class GridAdapter extends BaseAdapter {
         }
         BadgeData gridItems=items[position];
         viewHolder.title.setText(gridItems.getTitle());
+        //burada id ye göre resimleri atıyorum
         InputStream ims = null;
         try {
-            ims = context.getAssets().open("image"+gridItems.getId()+".png");
+            ims = context.getAssets().open("resource/image"+gridItems.getId()+".png");
         } catch (IOException e) {
             e.printStackTrace();
         }
-        // load image as Drawable
+        //  Drawable dan image çekmek
         Drawable d = Drawable.createFromStream(ims, null);
         viewHolder.imageView.setImageDrawable(d);
         viewHolder.howManydata.setText(service.calculateSize(gridItems.getId())+" adet");

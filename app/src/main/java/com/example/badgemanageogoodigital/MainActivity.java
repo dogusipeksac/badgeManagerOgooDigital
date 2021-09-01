@@ -14,6 +14,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.example.badgemanageogoodigital.Adapter.ListAdapter;
+import com.example.badgemanageogoodigital.Fragment.GridFragment;
 import com.example.badgemanageogoodigital.Model.BadgeData;
 import com.example.badgemanageogoodigital.Model.Data;
 import com.example.badgemanageogoodigital.Service.JsonService;
@@ -68,8 +69,10 @@ public class MainActivity extends FragmentActivity {
                     i=i+1;
                 }
             }
+            //burada çekilen verileri diziye atıyoruz
             BadgeData[] gp={};
             BadgeData[] gridPage=imlst.toArray(gp);
+            //ve 4 er diziler şeklinde listeye ekliyoruz
             gridFragmentList.add(new GridFragment(gridPage,MainActivity.this));
         }
         pagerAdapter=new PagerAdapter(getSupportFragmentManager(),gridFragmentList);

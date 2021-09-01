@@ -16,7 +16,12 @@ import com.example.badgemanageogoodigital.R;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
 
@@ -41,11 +46,12 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
 
         holder.message.setText(listItem.getMessage());
         holder.related_name.setText(listItem.getRelated_person().getTitle());
-        holder.created_date.setText(listItem.getCreted_date());
+        holder.created_date.setText(listItem.getCreted_date()+"'de gönderdi.");
         holder.badget_title.setText(listItem.getBadgeData().getTitle());
+        //burada id ye göre resimleri atıyorum
         InputStream ims = null;
         try {
-            ims = context.getAssets().open("image"+listItem.getBadgeData().getId()+".png");
+            ims = context.getAssets().open("resource/image"+listItem.getBadgeData().getId()+".png");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -80,4 +86,5 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
             profileImage=itemView.findViewById(R.id.profile_image);
         }
     }
+
 }

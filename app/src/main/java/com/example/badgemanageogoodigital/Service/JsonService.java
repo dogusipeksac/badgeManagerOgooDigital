@@ -14,8 +14,13 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class JsonService {
 
@@ -96,7 +101,10 @@ public class JsonService {
 
                 /////////////////////////////getdate
                 String cratedDate="";
-                cratedDate=object.getString("Created");
+                cratedDate=object.getString("Created.");
+                cratedDate=converterDate(cratedDate);
+
+
                 ///////////////////////////////////////
 
                 /////////////////////////////getmessage
@@ -128,6 +136,10 @@ public class JsonService {
             }
             ratingAvarage(ratingSum,jsonArrayList.length());
             sizeGeneral=list.size();
+
+
+
+
 
 
             // for
@@ -190,6 +202,24 @@ public class JsonService {
         ratingAvarageGeneral=(float)ratingSum/(float) size;
 
          return ratingAvarageGeneral;
+    }
+    //istenilen zamana çeviriyoruz
+    public String converterDate(String newDate){
+        String string =newDate;
+        //2021-08-06T20:26:56Z
+        DateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:SS'Z'");
+        try {
+            Date date = format.parse(string);
+            SimpleDateFormat formatter = new SimpleDateFormat("dd MMMM HH:mm",
+                    new Locale("tr"));
+            formatter.format(date);
+            return formatter.format(date);
+        }
+        catch(ParseException pe) {
+
+            return null;
+
+        }
     }
 
 }

@@ -60,12 +60,14 @@
                     android:orientation="horizontal">
 
                     <Button
+                        android:shadowColor="@color/white"
                         android:id="@+id/avarage_text"
                         android:layout_width="90dp"
                         android:layout_height="110dp"
                         android:background="@drawable/img_1"
                         android:fontFamily="@font/gotham_medium"
                         android:text="4.5"
+                        android:textAlignment="center"
                         android:textColor="@color/white"
                         android:textSize="30sp" />
 
@@ -129,27 +131,27 @@
                     android:layout_below="@+id/up">
 
                     <android.support.v4.view.ViewPager
-                        android:layout_marginTop="20dp"
-                        android:layout_marginBottom="10dp"
                         android:id="@+id/view_pager"
                         android:layout_width="match_parent"
                         android:layout_height="215dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginBottom="10dp"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" >
-                    </android.support.v4.view.ViewPager>
+                        app:layout_constraintTop_toTopOf="parent"></android.support.v4.view.ViewPager>
+
                     <com.viewpagerindicator.CirclePageIndicator
-                        app:pageColor="@color/darksolid"
-                        app:fillColor="@color/orange"
                         android:id="@+id/pagerIndicator"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="20dp"
                         android:layout_below="@id/view_pager"
                         android:layout_centerVertical="true"
+                        android:layout_marginBottom="20dp"
                         android:gravity="center_vertical|center_horizontal"
+                        app:fillColor="@color/orange"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent" />
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:pageColor="@color/grey" />
 
                 </android.support.constraint.ConstraintLayout>
             </RelativeLayout>

@@ -51,7 +51,7 @@
 
             <TextView
                 android:id="@+id/related_name"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="2dp"
                 android:text="Nagihan Uslu"
@@ -62,12 +62,12 @@
 
             <TextView
                 android:id="@+id/crated_date"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="2dp"
                 android:fontFamily="@font/gotham_book"
                 android:text="Dün,13:30'da gönderdi."
-                android:textSize="20dp" />
+                android:textSize="15dp" />
 
         </LinearLayout>
 
@@ -111,7 +111,6 @@
                     android:textSize="30dp" />
 
                 <RatingBar
-
                     android:id="@+id/ratingBar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
