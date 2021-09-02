@@ -33,6 +33,8 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
         this.context = context;
     }
 
+
+
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v= LayoutInflater.from(parent.getContext())
@@ -86,5 +88,14 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
             profileImage=itemView.findViewById(R.id.profile_image);
         }
     }
+
+    public List<Data> getListItems() {
+        return listItems;
+    }
+
+    public void setListItems(List<Data> listItems) {
+        this.listItems = listItems;
+    }
+
 
 }

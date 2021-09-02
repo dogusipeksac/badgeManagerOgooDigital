@@ -23,6 +23,10 @@ public class Data {
         this.related_person = related_person;
     }
 
+    public Data(BadgeData badgeData) {
+        this.badgeData = badgeData;
+    }
+
     public Data() {
     }
 

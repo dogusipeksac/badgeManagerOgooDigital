@@ -31,6 +31,8 @@ public class JsonService {
     public static float ratingAvarageGeneral;
     public static int sizeGeneral;
 
+
+
     //singleton
     public static JsonService get(Context context){
         if (jsonService==null){
@@ -43,6 +45,7 @@ public class JsonService {
         this.context = context;
         list=new ArrayList<>();
         badgeList=new ArrayList<>();
+
     }
     //local json için yol
     public static String loadJSONFromAsset(String path) {
@@ -63,7 +66,7 @@ public class JsonService {
 
 
     //list-datanın verilerini localden getirme
-    public List<Data> getJsonFileFromLocally() {
+    public List<Data> getJsonFileFromLocallyData() {
 
         try {
             JSONObject obj =(JSONObject) new JSONObject(loadJSONFromAsset("list-data.json"));
@@ -131,15 +134,9 @@ public class JsonService {
 
 
                 list.add(item);
-
-
             }
             ratingAvarage(ratingSum,jsonArrayList.length());
             sizeGeneral=list.size();
-
-
-
-
 
 
             // for
@@ -152,7 +149,6 @@ public class JsonService {
 
     //badge-data verilerini localden getirme
     public List<BadgeData> getJsonFromLocalyBadge(){
-
 
         try {
             JSONObject obj =(JSONObject) new JSONObject(loadJSONFromAsset("badge-data.json"));
@@ -220,6 +216,25 @@ public class JsonService {
             return null;
 
         }
+    }
+
+    //spinner nesnesindeki title göre getiriyor
+    public List<Data> getWithTitleList(String title){
+
+        List<Data> getSelectedForItemList=new ArrayList<>();
+        if(title.equalsIgnoreCase("Tüm Rozetler")){
+            return list;
+        }
+        else{
+            for(int i=0;i<list.size();i++){
+                if(title.equalsIgnoreCase(list.get(i).getBadgeData().getTitle())){
+                    getSelectedForItemList.add(list.get(i));
+                }
+            }
+        }
+
+
+        return getSelectedForItemList;
     }
 
 }
