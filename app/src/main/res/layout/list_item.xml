@@ -116,11 +116,11 @@
                     android:layout_height="wrap_content"
                     android:scaleX="0.5"
                     android:scaleY="0.5"
-                    android:transformPivotY="5dp"
-                    android:transformPivotX="5dp"
+                    android:transformPivotY="3dp"
+                    android:transformPivotX="3dp"
                     android:isIndicator="true"
                     android:numStars="5"
-                    android:layout_margin="7dp"
+                    android:layout_marginStart="1dp"
                     android:stepSize="0.5"/>
             </LinearLayout>
 
