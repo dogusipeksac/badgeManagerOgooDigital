@@ -23,6 +23,7 @@ public class SpinnerAdapter extends ArrayAdapter<BadgeData> {
 
     public SpinnerAdapter(Context context, List<BadgeData> badgeArrayList) {
         super(context, 0,badgeArrayList);
+        notifyDataSetChanged();
     }
 
     @NonNull
@@ -58,7 +59,7 @@ public class SpinnerAdapter extends ArrayAdapter<BadgeData> {
             //  Drawable dan image çekmek
             Drawable d = Drawable.createFromStream(ims, null);
             imageViewBadge.setImageDrawable(d);
-            textViewTitle.setText(badgeItem.getTitle());
+            textViewTitle.setText(badgeItem.getBadgeTitle());
         }
 
         return convertView;

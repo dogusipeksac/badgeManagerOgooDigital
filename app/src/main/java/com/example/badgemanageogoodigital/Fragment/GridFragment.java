@@ -43,7 +43,8 @@ public class GridFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         if (activity!=null){
-            mBadgeGridAdapter =new BadgeGridAdapter(activity,gridItems);
+            mBadgeGridAdapter =new BadgeGridAdapter(activity);
+            mBadgeGridAdapter.setItems(gridItems);
             //oluşturulan gridi adapter ile set ediyoruz
             if (mGridView!=null){
                 mGridView.setAdapter(mBadgeGridAdapter);

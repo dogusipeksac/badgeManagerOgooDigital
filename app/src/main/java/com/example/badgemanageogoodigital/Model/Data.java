@@ -12,7 +12,8 @@ public class Data {
     private RelatedPerson related_person;
     private String imgUrl;
 
-    public Data(String id, int praiseRating, int praiseCount, String creted_date, String message, BadgeData badgeData, Author author, RelatedPerson related_person) {
+    public Data(String id, int praiseRating, int praiseCount, String creted_date, String message, BadgeData badgeData,
+                Author author, RelatedPerson related_person) {
         this.id = id;
         this.praiseRating = praiseRating;
         this.praiseCount = praiseCount;

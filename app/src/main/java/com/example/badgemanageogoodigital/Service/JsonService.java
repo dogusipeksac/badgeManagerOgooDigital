@@ -24,7 +24,7 @@ import java.util.Locale;
 
 public class JsonService {
 
-    public  static Context context;
+    private   static Context context;
     List<Data> list;
     List<BadgeData> badgeList;
     private static JsonService jsonService;
@@ -65,9 +65,10 @@ public class JsonService {
     }
 
 
+
+
     //list-datanın verilerini localden getirme
     public List<Data> getJsonFileFromLocallyData() {
-
         try {
             JSONObject obj =(JSONObject) new JSONObject(loadJSONFromAsset("list-data.json"));
             JSONArray jsonArrayList= obj.getJSONArray("Row");
@@ -75,70 +76,40 @@ public class JsonService {
             ratingAvarageGeneral=0;
             for(int i=0;i<jsonArrayList.length();i++){
                 Data item=new Data(new BadgeData(),new Author(),new RelatedPerson());
-
-                ///////////////////////////////////////////get data string from json
                 JSONObject object=jsonArrayList.getJSONObject(i);
-
-
                 String relatedPersonTitle="";
-
                 JSONArray objectArrayRelated=object.getJSONArray("RelatedPerson");
                 for(int y=0;y<objectArrayRelated.length();y++){
                     JSONObject objectRelated= objectArrayRelated.getJSONObject(y);
-                    /////////////////////////////getTitle
                     relatedPersonTitle=objectRelated.getString("title");
-                    ///////////////////////////////////////
                 }
                 String badgelookupValue="";
                 int idForBadge=0;
                 JSONArray objectArrayBadge=object.getJSONArray("Badge");
                 for(int y=0;y<objectArrayBadge.length();y++){
                     JSONObject objectBadge= objectArrayBadge.getJSONObject(y);
-                    ///////////////////////////////////////
                     badgelookupValue=objectBadge.getString("lookupValue");
                     idForBadge=objectBadge.getInt("lookupId");
                 }
-                //şu an kullanılmıyor
                 JSONArray objectArrayAuthor=object.getJSONArray("Author");
-
-
-                /////////////////////////////getdate
                 String cratedDate="";
                 cratedDate=object.getString("Created.");
                 cratedDate=converterDate(cratedDate);
-
-
-                ///////////////////////////////////////
-
-                /////////////////////////////getmessage
                 String message="";
                 message=object.getString("Message");
-                ///////////////////////////////////////
-
-
-
                 int ratingScrore=0;
                 ratingScrore=object.getInt("PraiseRating");
-
-
                 ratingSum=ratingSum+ratingScrore;
-
-
-                /////////////////////////////////////Nesneleri listeye ekledik
                 item.getRelated_person().setTitle(relatedPersonTitle);
                 item.setCreted_date(cratedDate);
                 item.setMessage(message);
-                item.getBadgeData().setTitle(badgelookupValue);
+                item.getBadgeData().setBadgeTitle(badgelookupValue);
                 item.setPraiseRating(ratingScrore);
                 item.getBadgeData().setId(idForBadge);
-
-
                 list.add(item);
             }
             ratingAvarage(ratingSum,jsonArrayList.length());
             sizeGeneral=list.size();
-
-
             // for
         } catch (JSONException e) {
             e.printStackTrace();
@@ -161,13 +132,14 @@ public class JsonService {
                 id=object.getInt("Id");
                 BadgeData item=new BadgeData();
                 item.setId(id);
-                item.setTitle(title);
+                item.setBadgeTitle(title);
                 badgeList.add(item);
             }
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        System.out.println("kaç kere girildi");
      return badgeList;
     }
 
@@ -222,17 +194,12 @@ public class JsonService {
     public List<Data> getWithTitleList(String title){
 
         List<Data> getSelectedForItemList=new ArrayList<>();
-        if(title.equalsIgnoreCase("Tüm Rozetler")){
-            return list;
-        }
-        else{
+
             for(int i=0;i<list.size();i++){
-                if(title.equalsIgnoreCase(list.get(i).getBadgeData().getTitle())){
+                if(title.equalsIgnoreCase(list.get(i).getBadgeData().getBadgeTitle())){
                     getSelectedForItemList.add(list.get(i));
                 }
-            }
         }
-
 
         return getSelectedForItemList;
     }

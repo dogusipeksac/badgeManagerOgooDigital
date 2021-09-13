@@ -10,7 +10,9 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.badgemanageogoodigital.MainActivity;
 import com.example.badgemanageogoodigital.Model.BadgeData;
 import com.example.badgemanageogoodigital.R;
 import com.example.badgemanageogoodigital.Service.JsonService;
@@ -22,7 +24,7 @@ import java.util.ArrayList;
 public class BadgeGridAdapter extends BaseAdapter{
     Context context;
     private JsonService service;
-
+    private String title;
     public class ViewHolder{
 
         ImageView imageView;
@@ -36,14 +38,21 @@ public class BadgeGridAdapter extends BaseAdapter{
 
 
 
-    public BadgeGridAdapter(Context context, BadgeData[] locations){
+    public BadgeGridAdapter(Context context){
         mInflater=(LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.context=context;
-        items=locations;
+
         service=JsonService.get(context);
 
     }
 
+    public BadgeData[] getItems() {
+        return items;
+    }
+
+    public void setItems(BadgeData[] items) {
+        this.items = items;
+    }
 
     @Override
     public int getCount() {
@@ -58,6 +67,7 @@ public class BadgeGridAdapter extends BaseAdapter{
         if (items!=null && position>=0 && position < getCount()){
             return items[position];
         }
+
         return null;
     }
 
@@ -85,7 +95,7 @@ public class BadgeGridAdapter extends BaseAdapter{
             viewHolder=(ViewHolder) view.getTag();
         }
         BadgeData gridItems=items[position];
-        viewHolder.title.setText(gridItems.getTitle());
+        viewHolder.title.setText(gridItems.getBadgeTitle());
         //burada id ye göre resimleri atıyorum
         InputStream ims = null;
         try {
@@ -98,6 +108,13 @@ public class BadgeGridAdapter extends BaseAdapter{
         viewHolder.imageView.setImageDrawable(d);
         viewHolder.howManydata.setText(service.calculateSize(gridItems.getId())+" adet");
         viewHolder.ratingBar.setRating(service.calculateAvarage(gridItems.getId()));
+
+        viewHolder.title.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(context, gridItems.getBadgeTitle()+"basıldı", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         return view;
     }

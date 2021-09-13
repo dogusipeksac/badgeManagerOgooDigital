@@ -3,7 +3,6 @@ package com.example.badgemanageogoodigital.Model;
 public class BadgeData {
 
     private int badgeId;
-    private int id;
     private String badgeTitle;
     private int howmany;
     private float avarage;
@@ -13,9 +12,8 @@ public class BadgeData {
         this.badgeTitle = title;
     }
 
-    public BadgeData(int badgeId, int id, String badgeTitle, int howmany, float avarage) {
+    public BadgeData(int badgeId, String badgeTitle, int howmany, float avarage) {
         this.badgeId = badgeId;
-        this.id = id;
         this.badgeTitle = badgeTitle;
         this.howmany = howmany;
         this.avarage = avarage;
@@ -64,11 +62,5 @@ public class BadgeData {
         this.badgeId = id;
     }
 
-    public String getTitle() {
-        return badgeTitle;
-    }
 
-    public void setTitle(String title) {
-        this.badgeTitle = title;
-    }
 }

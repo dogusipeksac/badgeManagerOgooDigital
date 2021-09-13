@@ -28,8 +28,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
     private List<Data> listItems;
     private Context context;
 
-    public ListAdapter(List<Data> listItems, Context context) {
-        this.listItems = listItems;
+    public ListAdapter( Context context) {
         this.context = context;
     }
 
@@ -49,7 +48,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
         holder.message.setText(listItem.getMessage());
         holder.related_name.setText(listItem.getRelated_person().getTitle());
         holder.created_date.setText(listItem.getCreted_date()+"'de gönderdi.");
-        holder.badget_title.setText(listItem.getBadgeData().getTitle());
+        holder.badget_title.setText(listItem.getBadgeData().getBadgeTitle());
         //burada id ye göre resimleri atıyorum
         InputStream ims = null;
         try {
@@ -89,12 +88,10 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
         }
     }
 
-    public List<Data> getListItems() {
-        return listItems;
-    }
 
     public void setListItems(List<Data> listItems) {
         this.listItems = listItems;
+        notifyDataSetChanged();
     }
 
 

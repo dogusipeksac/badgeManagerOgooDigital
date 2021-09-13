@@ -51,7 +51,7 @@
             android:layout_marginStart="5dp"
             android:layout_marginTop="28dp"
             android:text="10 adet"
-            android:textSize="13sp"
+            android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.368"
@@ -76,7 +76,8 @@
 
             android:layout_marginStart="2dp"
             android:text="SORUN ÇÖZÜCÜ"
-            android:textSize="18sp"
+            android:textSize="16sp"
+
             app:layout_constraintBottom_toTopOf="@+id/ratingBarInBadge"
             app:layout_constraintStart_toEndOf="@+id/badgesImage"
             app:layout_constraintTop_toTopOf="parent" />
