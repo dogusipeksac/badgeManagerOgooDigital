@@ -1,6 +1,10 @@
 package com.example.badgemanageogoodigital.Service;
 
 import android.content.Context;
+import android.content.res.AssetManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 
 
 import com.example.badgemanageogoodigital.Model.Author;
@@ -19,8 +23,10 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 public class JsonService {
 
@@ -30,8 +36,7 @@ public class JsonService {
     private static JsonService jsonService;
     public static float ratingAverageGeneral;
     public static int sizeGeneral;
-
-
+    public static Map<Integer, Bitmap> mapImages;
 
     //singleton
     public static JsonService get(Context context){
@@ -45,7 +50,7 @@ public class JsonService {
         this.context = context;
         list=new ArrayList<>();
         badgeList=new ArrayList<>();
-
+        mapImages=new HashMap<>();
     }
     //local json için yol
     public static String loadJSONFromAsset(String path) {
@@ -66,7 +71,6 @@ public class JsonService {
 
 
 
-
     //list-datanın verilerini localden getirme
     public List<Data> getJsonFileFromLocallyData() {
         try {
@@ -79,18 +83,14 @@ public class JsonService {
                 JSONObject object=jsonArrayList.getJSONObject(i);
                 String relatedPersonTitle="";
                 JSONArray objectArrayRelated=object.getJSONArray("RelatedPerson");
-                for(int y=0;y<objectArrayRelated.length();y++){
-                    JSONObject objectRelated= objectArrayRelated.getJSONObject(y);
-                    relatedPersonTitle=objectRelated.getString("title");
-                }
+                JSONObject objectRelated= objectArrayRelated.getJSONObject(0);
+                relatedPersonTitle=objectRelated.getString("title");
                 String badgelookupValue="";
                 int idForBadge=0;
                 JSONArray objectArrayBadge=object.getJSONArray("Badge");
-                for(int y=0;y<objectArrayBadge.length();y++){
-                    JSONObject objectBadge= objectArrayBadge.getJSONObject(y);
-                    badgelookupValue=objectBadge.getString("lookupValue");
-                    idForBadge=objectBadge.getInt("lookupId");
-                }
+                JSONObject objectBadge= objectArrayBadge.getJSONObject(0);
+                badgelookupValue=objectBadge.getString("lookupValue");
+                idForBadge=objectBadge.getInt("lookupId");
                 //bu kullanılmıyor şu an
                 JSONArray objectArrayAuthor=object.getJSONArray("Author");
                 //
@@ -120,6 +120,10 @@ public class JsonService {
     }
 
 
+
+
+
+
     //badge-data verilerini localden getirme
     public List<BadgeData> getJsonFromLocalyBadge(){
 
@@ -127,23 +131,47 @@ public class JsonService {
             JSONObject obj =(JSONObject) new JSONObject(loadJSONFromAsset("badge-data.json"));
             JSONArray jsonArrayList= obj.getJSONArray("value");
             for (int i=0;i<jsonArrayList.length();i++){
+
                 JSONObject object=jsonArrayList.getJSONObject(i);
                 String title="";
                 title=object.getString("Title");
                 int id=0;
                 id=object.getInt("Id");
-                BadgeData item=new BadgeData();
-                item.setId(id);
-                item.setBadgeTitle(title);
-                badgeList.add(item);
+                if(calculateSize(id)!=0){
+                    BadgeData item=new BadgeData();
+                    addImages(id);
+                    item.setId(id);
+                    item.setBadgeTitle(title);
+                    badgeList.add(item);
+
+                }
+
             }
 
-        } catch (JSONException e) {
+        } catch (JSONException | IOException e) {
             e.printStackTrace();
         }
         System.out.println("kaç kere girildi");
      return badgeList;
     }
+
+    private void addImages(int key) throws IOException {
+        InputStream ims = null;
+        try {
+            ims = context.getAssets().open("resource/image"+key+".png");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        //  Drawable dan image çekmek
+        Bitmap bitmap = BitmapFactory.decodeStream(ims);
+        assert ims != null;
+        ims.close();
+
+       mapImages.put(key,bitmap);
+
+    }
+
+
 
     //hangi rozetten kaç tane var onu bulan fonksiyon
     //id sine göre sayıyorum
@@ -197,13 +225,11 @@ public class JsonService {
     public List<Data> getWithTitleList(String title){
 
         List<Data> getSelectedForItemList=new ArrayList<>();
-
             for(int i=0;i<list.size();i++){
                 if(title.equalsIgnoreCase(list.get(i).getBadgeData().getBadgeTitle())){
                     getSelectedForItemList.add(list.get(i));
                 }
         }
-
         return getSelectedForItemList;
     }
 

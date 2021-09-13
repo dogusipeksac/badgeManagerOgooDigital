@@ -49,6 +49,7 @@ public class MainActivityViewModel extends ViewModel {
         mBadgeDataListForSpinner=new MutableLiveData<>();
         mBadgeDataList=new MutableLiveData<>();
         mDataComingBadgeTitle=new MutableLiveData<>();
+
     }
 
     public void getDataComingBadgeTitleList(String title){

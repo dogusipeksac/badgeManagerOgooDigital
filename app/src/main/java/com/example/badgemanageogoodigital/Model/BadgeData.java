@@ -7,6 +7,7 @@ public class BadgeData {
     private int howmany;
     private float avarage;
 
+
     public BadgeData(int id, String title) {
         this.badgeId = id;
         this.badgeTitle = title;

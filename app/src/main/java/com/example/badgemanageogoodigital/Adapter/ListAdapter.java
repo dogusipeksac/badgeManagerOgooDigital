@@ -2,6 +2,7 @@ package com.example.badgemanageogoodigital.Adapter;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,8 +12,10 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 
+import com.bumptech.glide.Glide;
 import com.example.badgemanageogoodigital.Model.Data;
 import com.example.badgemanageogoodigital.R;
+import com.example.badgemanageogoodigital.Service.JsonService;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -34,6 +37,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
 
 
 
+
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v= LayoutInflater.from(parent.getContext())
@@ -49,15 +53,9 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
         holder.created_date.setText(listItem.getCreted_date()+"'de gönderdi.");
         holder.badge_title.setText(listItem.getBadgeData().getBadgeTitle());
         //burada id ye göre resimleri atıyorum
-        InputStream ims = null;
-        try {
-            ims = context.getAssets().open("resource/image"+listItem.getBadgeData().getId()+".png");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        // load image as Drawable
-        Drawable d = Drawable.createFromStream(ims, null);
-        holder.badges_image.setImageDrawable(d);
+        holder.badges_image.setImageBitmap(JsonService.mapImages.
+                get(listItem.getBadgeData().getId()));
+
         holder.ratingBar.setRating(listItem.getPraiseRating());
 
     }

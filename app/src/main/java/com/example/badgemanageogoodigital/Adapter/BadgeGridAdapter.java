@@ -20,11 +20,15 @@ import com.example.badgemanageogoodigital.Service.JsonService;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class BadgeGridAdapter extends BaseAdapter{
     Context context;
     private JsonService service;
-    private String title;
+
+
+    public static int number;
     public class ViewHolder{
 
         ImageView imageView;
@@ -43,6 +47,9 @@ public class BadgeGridAdapter extends BaseAdapter{
         this.context=context;
 
         service=JsonService.get(context);
+
+    }
+    private void addBadges(String key){
 
     }
 
@@ -83,6 +90,7 @@ public class BadgeGridAdapter extends BaseAdapter{
     public View getView(int position, View convertView, ViewGroup parent) {
         View view=convertView;
         ViewHolder viewHolder;
+
         if(view==null){
             view=mInflater.inflate(R.layout.badge_item,parent,false);
             viewHolder=new ViewHolder();
@@ -95,19 +103,16 @@ public class BadgeGridAdapter extends BaseAdapter{
             viewHolder=(ViewHolder) view.getTag();
         }
         BadgeData gridItems=items[position];
+        number=service.calculateSize(gridItems.getId());
         viewHolder.title.setText(gridItems.getBadgeTitle());
         //burada id ye göre resimleri atıyorum
-        InputStream ims = null;
-        try {
-            ims = context.getAssets().open("resource/image"+gridItems.getId()+".png");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        //  Drawable dan image çekmek
-        Drawable d = Drawable.createFromStream(ims, null);
-        viewHolder.imageView.setImageDrawable(d);
-        viewHolder.howManydata.setText(service.calculateSize(gridItems.getId())+" adet");
-        viewHolder.ratingBar.setRating(service.calculateAverage(gridItems.getId()));
+        viewHolder.imageView.setImageBitmap(JsonService.mapImages.get(gridItems.getId()));
+            viewHolder.howManydata.setText(number+" adet");
+            viewHolder.ratingBar.setRating(service.calculateAverage(gridItems.getId()));
+
+
+
+
 
         return view;
     }
