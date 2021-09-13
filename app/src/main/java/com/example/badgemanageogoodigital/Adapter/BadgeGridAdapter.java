@@ -110,10 +110,6 @@ public class BadgeGridAdapter extends BaseAdapter{
             viewHolder.howManydata.setText(number+" adet");
             viewHolder.ratingBar.setRating(service.calculateAverage(gridItems.getId()));
 
-
-
-
-
         return view;
     }
 

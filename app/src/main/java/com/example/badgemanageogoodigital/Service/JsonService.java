@@ -5,8 +5,11 @@ import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.badgemanageogoodigital.Model.Author;
 import com.example.badgemanageogoodigital.Model.BadgeData;
 import com.example.badgemanageogoodigital.Model.Data;
@@ -122,8 +125,6 @@ public class JsonService {
 
 
 
-
-
     //badge-data verilerini localden getirme
     public List<BadgeData> getJsonFromLocalyBadge(){
 
@@ -137,6 +138,8 @@ public class JsonService {
                 title=object.getString("Title");
                 int id=0;
                 id=object.getInt("Id");
+                //list-data da olmayan bir rozeti getirmemesi için
+                //yapılan kontrol
                 if(calculateSize(id)!=0){
                     BadgeData item=new BadgeData();
                     addImages(id);
@@ -155,6 +158,7 @@ public class JsonService {
      return badgeList;
     }
 
+    //resimleri yüklemek için
     private void addImages(int key) throws IOException {
         InputStream ims = null;
         try {
@@ -169,8 +173,8 @@ public class JsonService {
 
        mapImages.put(key,bitmap);
 
-    }
 
+    }
 
 
     //hangi rozetten kaç tane var onu bulan fonksiyon

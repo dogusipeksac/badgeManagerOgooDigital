@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.badgemanageogoodigital.Model.Data;
 import com.example.badgemanageogoodigital.R;
 import com.example.badgemanageogoodigital.Service.JsonService;
@@ -53,9 +54,15 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
         holder.created_date.setText(listItem.getCreted_date()+"'de gönderdi.");
         holder.badge_title.setText(listItem.getBadgeData().getBadgeTitle());
         //burada id ye göre resimleri atıyorum
+        //json service den görebilirsiniz
         holder.badges_image.setImageBitmap(JsonService.mapImages.
                 get(listItem.getBadgeData().getId()));
 
+        /*Glide.with(context)
+                .load(Uri.parse("file:///android_asset/resource/image"+
+                        listItem.getBadgeData().getId()+".png"))
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .into(holder.badges_image);*/
         holder.ratingBar.setRating(listItem.getPraiseRating());
 
     }
