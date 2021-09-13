@@ -44,11 +44,10 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         Data listItem=listItems.get(position);
-
         holder.message.setText(listItem.getMessage());
         holder.related_name.setText(listItem.getRelated_person().getTitle());
         holder.created_date.setText(listItem.getCreted_date()+"'de gönderdi.");
-        holder.badget_title.setText(listItem.getBadgeData().getBadgeTitle());
+        holder.badge_title.setText(listItem.getBadgeData().getBadgeTitle());
         //burada id ye göre resimleri atıyorum
         InputStream ims = null;
         try {
@@ -71,7 +70,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
     public class ViewHolder extends RecyclerView.ViewHolder{
         TextView related_name;
         TextView created_date;
-        TextView badget_title;
+        TextView badge_title;
         TextView message;
         ImageView badges_image;
         RatingBar ratingBar;
@@ -80,7 +79,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
             super(itemView);
             related_name=itemView.findViewById(R.id.related_name);
             created_date=itemView.findViewById(R.id.crated_date);
-            badget_title=itemView.findViewById(R.id.badget_title);
+            badge_title=itemView.findViewById(R.id.badget_title);
             message=itemView.findViewById(R.id.message);
             badges_image=itemView.findViewById(R.id.badges_image);
             ratingBar=itemView.findViewById(R.id.ratingBar);

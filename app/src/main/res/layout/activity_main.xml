@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_height="match_parent"
-    app:stickyHeader="@+id/reltiveDynamic"
+    app:stickyHeader="@+id/relativeDynamic"
     android:layout_width="match_parent">
     <RelativeLayout
         android:layout_width="match_parent"
@@ -165,7 +165,7 @@
             android:layout_width="match_parent"
             android:background="@color/white"
             android:layout_below="@id/card"
-            android:id="@+id/reltiveDynamic"
+            android:id="@+id/relativeDynamic"
             android:layout_height="wrap_content">
                 <Spinner
                     android:id="@+id/spinner"
@@ -181,7 +181,7 @@
             android:id="@+id/list_data_recycler"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/reltiveDynamic"
+            android:layout_below="@id/relativeDynamic"
             android:layout_marginHorizontal="1dp" />
     </RelativeLayout>
 </com.amar.library.ui.StickyScrollView>

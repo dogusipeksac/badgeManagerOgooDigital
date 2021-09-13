@@ -24,11 +24,11 @@ import java.util.Locale;
 
 public class JsonService {
 
-    private   static Context context;
+    private static Context context;
     List<Data> list;
     List<BadgeData> badgeList;
     private static JsonService jsonService;
-    public static float ratingAvarageGeneral;
+    public static float ratingAverageGeneral;
     public static int sizeGeneral;
 
 
@@ -73,7 +73,7 @@ public class JsonService {
             JSONObject obj =(JSONObject) new JSONObject(loadJSONFromAsset("list-data.json"));
             JSONArray jsonArrayList= obj.getJSONArray("Row");
             int ratingSum=0;
-            ratingAvarageGeneral=0;
+            ratingAverageGeneral=0;
             for(int i=0;i<jsonArrayList.length();i++){
                 Data item=new Data(new BadgeData(),new Author(),new RelatedPerson());
                 JSONObject object=jsonArrayList.getJSONObject(i);
@@ -91,7 +91,9 @@ public class JsonService {
                     badgelookupValue=objectBadge.getString("lookupValue");
                     idForBadge=objectBadge.getInt("lookupId");
                 }
+                //bu kullanılmıyor şu an
                 JSONArray objectArrayAuthor=object.getJSONArray("Author");
+                //
                 String cratedDate="";
                 cratedDate=object.getString("Created.");
                 cratedDate=converterDate(cratedDate);
@@ -108,7 +110,7 @@ public class JsonService {
                 item.getBadgeData().setId(idForBadge);
                 list.add(item);
             }
-            ratingAvarage(ratingSum,jsonArrayList.length());
+            ratingAverage(ratingSum,jsonArrayList.length());
             sizeGeneral=list.size();
             // for
         } catch (JSONException e) {
@@ -144,6 +146,7 @@ public class JsonService {
     }
 
     //hangi rozetten kaç tane var onu bulan fonksiyon
+    //id sine göre sayıyorum
     public int calculateSize(int id){
         int size=0;
         for(int i=0;i<list.size();i++){
@@ -153,9 +156,9 @@ public class JsonService {
         }
         return size;
     }
-    //hangi rozetten kaç tane var
-    // rozetlerin sayısını ratinge bölen fonksiyon avarage hesaplıyor
-    public float calculateAvarage(int id){
+
+    //rozetlerin sayısını ratinge bölen fonksiyon average hesaplıyor
+    public float calculateAverage(int id){
         float avarage=0;
         for(int i=0;i<list.size();i++){
             if(list.get(i).getBadgeData().getId()==id){
@@ -165,11 +168,11 @@ public class JsonService {
         return avarage/calculateSize(id);
     }
     //butun rozetlerin toplamını alıp listenin sayısına bölen fonsiyon
-    public float ratingAvarage(int ratingSum,int size){
+    public float ratingAverage(int ratingSum,int size){
 
-        ratingAvarageGeneral=(float)ratingSum/(float) size;
+        ratingAverageGeneral=(float)ratingSum/(float) size;
 
-         return ratingAvarageGeneral;
+         return ratingAverageGeneral;
     }
     //istenilen zamana çeviriyoruz
     public String converterDate(String newDate){

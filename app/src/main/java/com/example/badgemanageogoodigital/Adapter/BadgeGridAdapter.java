@@ -107,14 +107,7 @@ public class BadgeGridAdapter extends BaseAdapter{
         Drawable d = Drawable.createFromStream(ims, null);
         viewHolder.imageView.setImageDrawable(d);
         viewHolder.howManydata.setText(service.calculateSize(gridItems.getId())+" adet");
-        viewHolder.ratingBar.setRating(service.calculateAvarage(gridItems.getId()));
-
-        viewHolder.title.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(context, gridItems.getBadgeTitle()+"basıldı", Toast.LENGTH_SHORT).show();
-            }
-        });
+        viewHolder.ratingBar.setRating(service.calculateAverage(gridItems.getId()));
 
         return view;
     }
