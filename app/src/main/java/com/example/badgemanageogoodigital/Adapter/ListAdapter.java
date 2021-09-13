@@ -58,12 +58,12 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
         holder.badges_image.setImageBitmap(JsonService.mapImages.
                 get(listItem.getBadgeData().getId()));
 
-        /*Glide.with(context)
+      /*  Glide.with(context)
                 .load(Uri.parse("file:///android_asset/resource/image"+
                         listItem.getBadgeData().getId()+".png"))
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .into(holder.badges_image);*/
-        holder.ratingBar.setRating(listItem.getPraiseRating());
+                .into(holder.badges_image);
+        holder.ratingBar.setRating(listItem.getPraiseRating());*/
 
     }
     //üstteki dataların view holderi

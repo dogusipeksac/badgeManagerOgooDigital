@@ -170,10 +170,7 @@ public class JsonService {
         Bitmap bitmap = BitmapFactory.decodeStream(ims);
         assert ims != null;
         ims.close();
-
        mapImages.put(key,bitmap);
-
-
     }
 
 
