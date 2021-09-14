@@ -40,7 +40,7 @@ public class MainActivity extends FragmentActivity {
     private RatingBar ratingBar;
     private Spinner spinner;
     boolean first=true;
-    private MainActivityViewModel mActivityViewModal;
+    private MainActivityViewModel mActivityViewModel;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,13 +58,15 @@ public class MainActivity extends FragmentActivity {
     }
 
     private void initRcyclerViewData() {
+        //list-data için setlayout
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         adapter=new ListAdapter(getApplicationContext());
         recyclerView.setAdapter(adapter);
     }
 
     private void initDataView() {
-        mActivityViewModal.getDataListObserve().observe(this, new Observer<List<Data>>() {
+
+        mActivityViewModel.getDataListObserve().observe(this, new Observer<List<Data>>() {
             @Override
             public void onChanged(@Nullable List<Data> data) {
                 adapter.setListItems(data);
@@ -74,15 +76,15 @@ public class MainActivity extends FragmentActivity {
 
     //4 lü şekilde listeyi getirme işlemini mvvm e taşıdım
     private void arrayWithFourGroup() {
-        mActivityViewModal.getBadgeDataListObserve().observe(this, new Observer<List<BadgeData>>() {
+        mActivityViewModel.getBadgeDataListObserve().observe(this, new Observer<List<BadgeData>>() {
             @Override
             public void onChanged(@Nullable List<BadgeData> badgeDatalist) {
-                pagerAdapter=new PagerAdapter(getSupportFragmentManager(),mActivityViewModal.getFourBadgeList());
+                pagerAdapter=new PagerAdapter(getSupportFragmentManager(),mActivityViewModel.getFourBadgeList());
                 awesomePager.setAdapter(pagerAdapter);
                 mIndicator.setViewPager(awesomePager);
-                int listDataSize=mActivityViewModal.dataSize();
+                int listDataSize=mActivityViewModel.dataSize();
                 number.setText(listDataSize + " adet");
-                float rating=mActivityViewModal.dataListAverage();
+                float rating=mActivityViewModel.dataListAverage();
                 String strDouble = String.format("%.1f", rating);
                 ratingBar.setRating(rating);
                 averageText.setText(""+strDouble);
@@ -106,19 +108,21 @@ public class MainActivity extends FragmentActivity {
 
 
     public void spinnerGetList(){
-        mActivityViewModal.getBadgeAddedDataListForSpinner();
-        mActivityViewModal.getBadgeDataListForSpinnerObserve().observe(this, new Observer<List<BadgeData>>() {
+        mActivityViewModel.getBadgeAddedDataListForSpinner();
+        mActivityViewModel.getBadgeDataListForSpinnerObserve().observe(this, new Observer<List<BadgeData>>() {
             @Override
             public void onChanged(@Nullable List<BadgeData> badgeData) {
                 spinnerAdapter=new SpinnerAdapter(MainActivity.this,badgeData);
                 spinner.setAdapter(spinnerAdapter);
                 spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    //item listener
                     @Override
                     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                         BadgeData spinnerSelected=(BadgeData) parent.getItemAtPosition(position);
-                        mActivityViewModal.getDataComingBadgeTitleList(
+                        //çekilen itemlerin titlelarını yollayarak arama yapıyorum
+                        mActivityViewModel.getDataComingBadgeTitleList(
                                 spinnerSelected.getBadgeTitle());
-                        mActivityViewModal.getDataComingBadgeTitleObserve().observe(MainActivity.this, new Observer<List<Data>>() {
+                        mActivityViewModel.getDataComingBadgeTitleObserve().observe(MainActivity.this, new Observer<List<Data>>() {
                             @Override
                             public void onChanged(@Nullable List<Data> data) {
                                 setAdapterBottomList(data);
@@ -146,10 +150,11 @@ public class MainActivity extends FragmentActivity {
         mIndicator=(PageIndicator) findViewById(R.id.pagerIndicator);
         number=findViewById(R.id.adet);
         ratingBar=findViewById(R.id.ratingBar3);
-        mActivityViewModal=ViewModelProviders.of(this).get(MainActivityViewModel.class);
-        mActivityViewModal.init(this);
-        mActivityViewModal.getDataList();
-        mActivityViewModal.getDataBadgeList();
+        mActivityViewModel=ViewModelProviders.of(this).get(MainActivityViewModel.class);
+        mActivityViewModel.init(this);
+        //list-data ve badge-data-listi başta getiriyorum
+        mActivityViewModel.getDataList();
+        mActivityViewModel.getDataBadgeList();
 
     }
 

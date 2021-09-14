@@ -51,7 +51,7 @@ public class MainActivityViewModel extends ViewModel {
         mDataComingBadgeTitle=new MutableLiveData<>();
 
     }
-
+    //spinner için title ile data-list getirme
     public void getDataComingBadgeTitleList(String title){
 
         if(title.equalsIgnoreCase("Tüm Rozetler")){
@@ -66,7 +66,9 @@ public class MainActivityViewModel extends ViewModel {
 
     }
 
-
+    //elimdeki badge-list çekiyorum
+    //daha sonra spinner için yeniden
+    // modify ediyorum en başına tüm rozetler ekliyorum
     public void getBadgeAddedDataListForSpinner(){
 
         List<BadgeData> dataList=mBadgeDataList.getValue();
@@ -80,7 +82,7 @@ public class MainActivityViewModel extends ViewModel {
         mBadgeDataListForSpinner.setValue(newList);
     }
 
-
+    //butun data-listi getirme
     public void getDataList(){
         List<Data> dataList= service.getJsonFileFromLocallyData();
         if(dataList.size()>0){
@@ -90,6 +92,7 @@ public class MainActivityViewModel extends ViewModel {
             mDataList.setValue(null);
         }
     }
+    //butun badge-list getirme
     public void getDataBadgeList(){
       List<BadgeData> dataList=service.getJsonFromLocalyBadge();
         if(dataList.size()>0){
@@ -99,6 +102,7 @@ public class MainActivityViewModel extends ViewModel {
             mBadgeDataList.setValue(null);
         }
     }
+    //4lü sınıflamak için listeyi yeniden düzenliyorum
     public List<GridFragment> getFourBadgeList(){
         List<BadgeData> dataList=mBadgeDataList.getValue();
         Iterator<BadgeData> it=dataList.iterator();
@@ -122,12 +126,13 @@ public class MainActivityViewModel extends ViewModel {
         }
         return  gridFragmentList;
     }
-
+    //butun data-list listenin uzunluğu
     public int dataSize(){
         int mDataListSize=service.sizeGeneral;
 
         return mDataListSize;
     }
+    //butun liste data-list için average hesaplama
     public float dataListAverage(){
         float mDataListAverage=JsonService.ratingAverageGeneral;
         return mDataListAverage;

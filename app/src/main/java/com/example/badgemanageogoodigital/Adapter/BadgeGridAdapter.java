@@ -107,8 +107,8 @@ public class BadgeGridAdapter extends BaseAdapter{
         viewHolder.title.setText(gridItems.getBadgeTitle());
         //burada id ye göre resimleri atıyorum
         viewHolder.imageView.setImageBitmap(JsonService.mapImages.get(gridItems.getId()));
-            viewHolder.howManydata.setText(number+" adet");
-            viewHolder.ratingBar.setRating(service.calculateAverage(gridItems.getId()));
+        viewHolder.howManydata.setText(number+" adet");
+        viewHolder.ratingBar.setRating(service.calculateAverage(gridItems.getId()));
 
         return view;
     }

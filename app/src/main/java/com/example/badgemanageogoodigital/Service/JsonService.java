@@ -39,6 +39,7 @@ public class JsonService {
     private static JsonService jsonService;
     public static float ratingAverageGeneral;
     public static int sizeGeneral;
+    //ide ye göre hashmap yapım için resim getiren liste
     public static Map<Integer, Bitmap> mapImages;
 
     //singleton
@@ -138,8 +139,8 @@ public class JsonService {
                 title=object.getString("Title");
                 int id=0;
                 id=object.getInt("Id");
-                //list-data da olmayan bir rozeti getirmemesi için
-                //yapılan kontrol
+                //list-data da olmayan bir rozeti
+                //getirmemesi için yapılan kontrol
                 if(calculateSize(id)!=0){
                     BadgeData item=new BadgeData();
                     addImages(id);
@@ -158,7 +159,7 @@ public class JsonService {
      return badgeList;
     }
 
-    //resimleri yüklemek için
+    //resimleri yüklemek için keye göre bitmap atıyorum
     private void addImages(int key) throws IOException {
         InputStream ims = null;
         try {
@@ -224,7 +225,6 @@ public class JsonService {
 
     //spinner nesnesindeki title göre getiriyor
     public List<Data> getWithTitleList(String title){
-
         List<Data> getSelectedForItemList=new ArrayList<>();
             for(int i=0;i<list.size();i++){
                 if(title.equalsIgnoreCase(list.get(i).getBadgeData().getBadgeTitle())){

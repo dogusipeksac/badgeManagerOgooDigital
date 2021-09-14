@@ -48,6 +48,7 @@ public class SpinnerAdapter extends ArrayAdapter<BadgeData> {
         ImageView imageViewBadge=convertView.findViewById(R.id.image_spinner);
         TextView textViewTitle=convertView.findViewById(R.id.text_spinner_title);
         BadgeData badgeItem=getItem(position);
+        //spinner için assetsden image verilerini getirme
         if(badgeItem!=null){
             //burada id ye göre resimleri atıyorum
             InputStream ims = null;
